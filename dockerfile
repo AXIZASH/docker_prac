@@ -11,7 +11,7 @@ COPY . /app
 RUN pip install flask
 
 # Expose port 5000
-EXPOSE 5000
+EXPOSE 5050
 
 # Command to run the application
 CMD ["python", "app.py"]
