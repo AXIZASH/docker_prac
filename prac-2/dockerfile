@@ -1,0 +1,18 @@
+FROM python:3.9-slim AS bob
+
+WORKDIR /app
+COPY requirements.txt .
+RUN pip install --target=/app/deps -r requirements.txt  
+# can use --no-cache-dir
+
+FROM gcr.io/distroless/python3
+
+WORKDIR /app
+COPY --from=bob /app/deps /app/deps
+COPY . .
+
+ENV PYTHONPATH="/app/deps"
+
+EXPOSE 5000
+
+CMD ["app.py"]
